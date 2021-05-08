@@ -1,3 +1,0 @@
-pip install python
-pip install flask
-pip install bs4
