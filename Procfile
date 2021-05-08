@@ -1,0 +1,1 @@
+web: python alveyn_location_service.py runserver 0.0.0.0:5000
