@@ -2,11 +2,16 @@
 
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 
 # test
+
+@app.route("/")
+def index():
+    message = "Query /getlocation to get your location!"
+    return render_template('index.html', message=message)
 
 @app.route('/getlocation')
 def return_location():
@@ -47,4 +52,4 @@ def return_location():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
