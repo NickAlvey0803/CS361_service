@@ -1,1 +1,1 @@
-web: gunicorn alveyn_location_service:app
+web: gunicorn alveyn_location_service:app --preload
