@@ -21,7 +21,7 @@ def return_location():
     else:
         ip = request.headers.getlist("X-Forwarded-For")[0]
 
-    URL = 'https://www.geodatatool.com/'
+    URL = 'https://www.geodatatool.com/en/?ip=' + str(ip)
     page = requests.get(URL)
 
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -39,8 +39,8 @@ def return_location():
 
     string_dict["longitude"] = string_list[string_list.index('Longitude:') + 1]
     string_dict["latitude"] = string_list[string_list.index('Latitude:') + 1]
-    string_dict["IP address"] = string_list[string_list.index('IP Address:') + 1]
-    string_dict["MY IP ADD"] = str(ip)
+    # string_dict["IP address"] = string_list[string_list.index('IP Address:') + 1]
+    # string_dict["MY IP ADD"] = str(ip)
     string_dict["City"] = string_list[string_list.index('City:') + 1]
     string_dict["Region"] = string_list[string_list.index('Region:') + 1]
     string_dict["Zip"] = string_list[string_list.index('Postal Code:') + 1]
