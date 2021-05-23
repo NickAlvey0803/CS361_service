@@ -2,7 +2,7 @@
 
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
 
@@ -15,6 +15,12 @@ def index():
 
 @app.route('/getlocation')
 def return_location():
+
+    if not request.headers.getlist("X-Forwarded-For"):
+        ip = request.remote_addr
+    else:
+        ip = request.headers.getlist("X-Forwarded-For")[0]
+
     URL = 'https://www.geodatatool.com/'
     page = requests.get(URL)
 
@@ -34,6 +40,7 @@ def return_location():
     string_dict["longitude"] = string_list[string_list.index('Longitude:') + 1]
     string_dict["latitude"] = string_list[string_list.index('Latitude:') + 1]
     string_dict["IP address"] = string_list[string_list.index('IP Address:') + 1]
+    string_dict["MY IP ADD"] = str(ip)
     string_dict["City"] = string_list[string_list.index('City:') + 1]
     string_dict["Region"] = string_list[string_list.index('Region:') + 1]
     string_dict["Zip"] = string_list[string_list.index('Postal Code:') + 1]
